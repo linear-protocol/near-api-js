@@ -207,9 +207,10 @@ export declare class Account {
      * @param options.stringify Convert input arguments into a bytes array. By default the input is treated as a JSON.
      * @returns {Promise<any>}
      */
-    viewFunction(contractId: string, methodName: string, args?: any, { parse, stringify }?: {
+    viewFunction(contractId: string, methodName: string, args?: any, { parse, stringify, blockId }?: {
         parse?: typeof parseJsonFromRawResponse;
         stringify?: typeof bytesJsonStringify;
+        blockId?: any;
     }): Promise<any>;
     /**
      * Returns the state (key value pairs) of this account's contract based on the key prefix.

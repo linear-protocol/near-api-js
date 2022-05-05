@@ -517,17 +517,18 @@ export class Account {
         contractId: string,
         methodName: string,
         args: any = {},
-        { parse = parseJsonFromRawResponse, stringify = bytesJsonStringify } = {}
+        { parse = parseJsonFromRawResponse, stringify = bytesJsonStringify, blockId = null } = {}
     ): Promise<any> {
         this.validateArgs(args);
         const serializedArgs = stringify(args).toString('base64');
 
+        const blockQuery = blockId ? { blockId } : { finality: 'optimistic' as Finality };
         const result = await this.connection.provider.query<CodeResult>({
             request_type: 'call_function',
             account_id: contractId,
             method_name: methodName,
             args_base64: serializedArgs,
-            finality: 'optimistic'
+            ...blockQuery,
         });
 
         if (result.logs) {
