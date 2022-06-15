@@ -207,10 +207,10 @@ export declare class Account {
      * @param options.stringify Convert input arguments into a bytes array. By default the input is treated as a JSON.
      * @returns {Promise<any>}
      */
-    viewFunction(contractId: string, methodName: string, args?: any, { parse, stringify, blockId }?: {
+    viewFunction(contractId: string, methodName: string, args?: any, { parse, stringify, block_id }?: {
         parse?: typeof parseJsonFromRawResponse;
         stringify?: typeof bytesJsonStringify;
-        blockId?: any;
+        block_id?: any;
     }): Promise<any>;
     /**
      * Returns the state (key value pairs) of this account's contract based on the key prefix.
@@ -221,7 +221,7 @@ export declare class Account {
      * @param blockQuery specifies which block to query state at. By default returns last "optimistic" block (i.e. not necessarily finalized).
      */
     viewState(prefix: string | Uint8Array, blockQuery?: {
-        blockId: BlockId;
+        block_id: BlockId;
     } | {
         finality: Finality;
     }): Promise<Array<{

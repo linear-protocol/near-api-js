@@ -517,12 +517,12 @@ export class Account {
         contractId: string,
         methodName: string,
         args: any = {},
-        { parse = parseJsonFromRawResponse, stringify = bytesJsonStringify, blockId = null } = {}
+        { parse = parseJsonFromRawResponse, stringify = bytesJsonStringify, block_id = null } = {}
     ): Promise<any> {
         this.validateArgs(args);
         const serializedArgs = stringify(args).toString('base64');
 
-        const blockQuery = blockId ? { blockId } : { finality: 'optimistic' as Finality };
+        const blockQuery = block_id ? { block_id } : { finality: 'optimistic' as Finality };
         const result = await this.connection.provider.query<CodeResult>({
             request_type: 'call_function',
             account_id: contractId,
@@ -546,7 +546,7 @@ export class Account {
      * @param prefix allows to filter which keys should be returned. Empty prefix means all keys. String prefix is utf-8 encoded.
      * @param blockQuery specifies which block to query state at. By default returns last "optimistic" block (i.e. not necessarily finalized).
      */
-    async viewState(prefix: string | Uint8Array, blockQuery: { blockId: BlockId } | { finality: Finality } = { finality: 'optimistic' } ): Promise<Array<{ key: Buffer; value: Buffer}>> {
+    async viewState(prefix: string | Uint8Array, blockQuery: { block_id: BlockId } | { finality: Finality } = { finality: 'optimistic' } ): Promise<Array<{ key: Buffer; value: Buffer}>> {
         const { values } = await this.connection.provider.query<ViewStateResult>({
             request_type: 'view_state',
             ...blockQuery,
