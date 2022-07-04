@@ -78,5 +78,8 @@
         "dist",
         "browser-exports.js"
     ],
-    "author": "NEAR Inc"
+    "author": "NEAR Inc",
+    "publishConfig": {
+        "access": "public"
+    }
 }
